@@ -1,0 +1,100 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2212                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+9
+(
+    bladerotor
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          12912;
+        startFace       1726943;
+    }
+    shroud
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          5048;
+        startFace       1739855;
+    }
+    hub
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          6730;
+        startFace       1744903;
+    }
+    
+    ami2
+    {
+        type            cyclicAMI;
+        inGroups        1(symmetry);
+        nFaces          4320;
+        startFace       1751633;
+        matchTolerance  0.0001;
+        transform       translational;
+        separationVector (0 0 -0.01);
+        neighbourPatch  ami1;
+        AMIMethod       faceAreaWeightAMI;
+        restartUncoveredSourceFace 1;
+    }
+    
+    outlet
+    {
+        type            patch;
+        nFaces          1230;
+        startFace       1755953;
+    }
+    inlet
+    {
+        type            patch;
+        nFaces          1382;
+        startFace       1757183;
+    }
+    
+    ami1
+    {
+        type            cyclicAMI;
+        inGroups        1(symmetry);
+        nFaces          4710;
+        startFace       1758565;
+        matchTolerance  0.0001;
+        transform       translational;
+        separationVector (0 0 0.01);
+        neighbourPatch  ami2;
+        AMIMethod       faceAreaWeightAMI;
+        restartUncoveredSourceFace 1;
+    }
+    
+    wallstator
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          12419;
+        startFace       1763275;
+    }
+    bladestator
+    {
+        type            wall;
+        inGroups        1(wall);
+        nFaces          20973;
+        startFace       1775694;
+    }
+)
+
+// ************************************************************************* //
